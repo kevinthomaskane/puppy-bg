@@ -2,7 +2,7 @@
     "name": "Puppy Wallpaper for Google",
     "version": "1.0",
     "description": "Choose a cute puppy image as the background for Google chrome!",
-    "permissions": ["activeTab", "tabs", "bookmarks", "chrome://favicon/"],
+    "permissions": ["activeTab", "tabs", "bookmarks", "chrome://favicon/", "webRequest", "webRequestBlocking"],
     "background": {
         "scripts": ["background.js"],
         "persistent": true

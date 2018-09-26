@@ -1,3 +1,40 @@
+body {
+    position: relative;
+}
+
+.settings-modal {
+    position: absolute;
+    top: 300px;
+    width: 75%;
+    min-height: 300px;
+    height: auto;
+    border: solid 1px rgb(224, 224, 224);
+    border-radius: 2px;
+    opacity: 1;
+    transition: all .5s ease-in-out;
+    background-color: #fff;
+    z-index: 1000;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.settings-modal-header {
+    border-bottom: solid 1px rgb(180, 180, 180);
+    height: 50px;
+}
+
+.settings-modal-header > div {
+    padding: 15px;
+    display: inline-block;
+    font-size: 14px;
+    color: #757575;
+    cursor: pointer;
+}
+
+.close-modal {
+    float: right;
+}
+
 .search__container {
     position: fixed;
     top: 50%;
@@ -56,181 +93,35 @@
     bottom: 15px;
     right: 15px;
 }
-.puppy-container {
-    position: fixed;
-    left: 20px;
-    bottom: 20px;
-    width: 200px;
+
+.settings-btn-dot {
+    display: block;
+    width: 5px;
+    height: 5px;
+    margin: 23px auto 0 auto;
+    background-color: black;
+    border-radius: 50%;
+    position: relative;
 }
 
-svg {
-    height: 150px;
-    width: 100%;
+.settings-btn-dot::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    background-color: black;
+    border-radius: 50%;
+    position: absolute;
+    left: -10px;
+    top: 0;
 }
 
-#tail {
-    animation: wagTail .5s infinite;
+.settings-btn-dot::after {
+    content: "";
+    width: 5px;
+    height: 5px;
+    background-color: black;
+    border-radius: 50%;
+    position: absolute;
+    right: -10px;
+    top: 0;
 }
-
-#H {
-    animation: H 1s infinite;
-    backface-visibility: hidden;
-    animation-delay: 0;
-  }
-  #i {
-    animation: i 1s infinite;
-    backface-visibility: hidden;
-    animation-delay: 125ms;
-  }
-  #t {
-    animation: t 1s infinite;
-    backface-visibility: hidden;
-    animation-delay: 250ms;
-  }
-  #h {
-    animation: h 1s infinite;
-    backface-visibility: hidden;
-    animation-delay: 375ms;
-  }
-  #e-1 {
-    animation: e1 1s infinite;
-    backface-visibility: hidden;
-    animation-delay: 500ms;
-  }
-  #r {
-    animation: ranimation 1s infinite;
-    backface-visibility: hidden;
-    animation-delay: 625ms;
-  }
-  #e-2 {
-    animation: e2 1s infinite;
-    backface-visibility: hidden;
-    animation-delay: 750ms;
-  }
-  #ex {
-    animation: ex 1s infinite;
-    backface-visibility: hidden;
-    animation-delay: 875ms;
-  }
-
-@keyframes blink {
-    0% {
-      opacity: 1;
-      transform: translate(154px, 140px);
-    }
-    50% {
-      opacity: 1;
-      transform: translate(154px, 160px);
-    }
-    100% {
-      opacity: 1;
-      transform: translate(154px, 140px);
-    }
-  }
-
-  @keyframes wagTail {
-    0% {
-      transform: rotate(0deg) translate(232px, 294px);
-    }
-    25% {
-      transform: rotate(1deg) translate(232px, 294px);
-    }
-    50% {
-      transform: rotate(0deg) translate(232px, 294px);
-    }
-    75% {
-      transform: rotate(1deg) translate(232px, 294px);
-    }
-    100% {
-      transform: rotate(0deg) translate(232px, 294px);
-    }
-  }
-
-  @keyframes H {
-    0% {
-      transform: translate(373px, 201px);
-    }
-    50% {
-      transform: translate(373px, 192px);
-    }
-    100% {
-      transform: translate(373px, 201px);
-    }
-  }
-  @keyframes i {
-    0% {
-      transform: translate(415px, 201px);
-    }
-    50% {
-      transform: translate(415px, 192px);
-    }
-    100% {
-      transform: translate(415px, 201px);
-    }
-  }
-  @keyframes t {
-    0% {
-      transform: translate(455px, 201px);
-    }
-    50% {
-      transform: translate(455px, 192px);
-    }
-    100% {
-      transform: translate(455px, 201px);
-    }
-  }
-  @keyframes h {
-    0% {
-      transform: translate(480px, 201px);
-    }
-    50% {
-      transform: translate(480px, 192px);
-    }
-    100% {
-      transform: translate(480px, 201px);
-    }
-  }
-  @keyframes e1 {
-    0% {
-      transform: translate(520px, 201px);
-    }
-    50% {
-      transform: translate(520px, 192px);
-    }
-    100% {
-      transform: translate(520px, 201px);
-    }
-  }
-  @keyframes ranimation {
-    0% {
-      transform: translate(555px, 201px);
-    }
-    50% {
-      transform: translate(555px, 192px);
-    }
-    100% {
-      transform: translate(555px, 201px);
-    }
-  }
-  @keyframes e2 {
-    0% {
-      transform: translate(582px, 201px);
-    }
-    50% {
-      transform: translate(582px, 192px);
-    }
-    100% {
-      transform: translate(582px, 201px);
-    }
-  }
-  @keyframes ex {
-    0% {
-      transform: translate(618px, 201px);
-    }
-    50% {
-      transform: translate(618px, 192px);
-    }
-    100% {
-      transform: translate(618px, 201px);
-    }
-  }

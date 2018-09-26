@@ -4,6 +4,7 @@
 // }
 
 let query;
+const preview_key = "5babefbd8a567164c73d920297d41be28920f036b7156"
 const array_of_puppies = [
     "https://images.pexels.com/photos/39317/chihuahua-dog-puppy-cute-39317.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260", 
     "https://images.pexels.com/photos/460823/pexels-photo-460823.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
@@ -17,17 +18,7 @@ const array_of_puppies = [
 const body = document.querySelector("body");
 const search_input = document.querySelector(".search-bar");
 const search_btn = document.querySelector(".search-btn");
-
-//puppy parts
-const eye_lids = document.getElementById("eyelids");
-const tail = document.getElementById("tail");
-const blink = setInterval(initBlink, 4000);
-function initBlink() {
-    eye_lids.style.animation = "blink 1s";
-    setTimeout(() => {
-      eye_lids.style.animation = "";
-    }, 1001);
-}
+const bookmarks_container = document.querySelector(".bookmarks-container");
 
 function choose_puppy(arr){
     let max_index = arr.length;
@@ -61,7 +52,31 @@ search_btn.onclick = function(){
     }
 }
 
-chrome.bookmarks.getTree( function(data){
-    console.log(data)
-})
 
+// fill bookmarks
+function getBookmarks(){
+    
+}
+
+
+chrome.bookmarks.getSubTree("0", function(data){
+    let bookmarks_array = data[0].children[0].children;
+    console.log(bookmarks_array)
+    for (let i = 0; i < bookmarks_array.length; i++){
+        let card = document.createElement("a");
+        card.href = bookmarks_array[i].url;
+        card.classname = "bookmark-card";
+        let icon = document.createElement("img");
+        icon.src = "chrome://favicon/" + bookmarks_array[i].url;
+        let title = document.createElement("span");
+        title.innerText = bookmarks_array[i].title;
+        fetch("https://api.linkpreview.net?key="+ preview_key + "&q=" + bookmarks_array[i].url).then(response => {
+            return response.json()
+        }).then(image => {
+            card.style.backgroundImage = `url(${image.image})`;
+            card.appendChild(icon);
+            card.appendChild(title);
+            bookmarks_container.appendChild(card);
+        }) 
+    }
+})
