@@ -1,6 +1,7 @@
 let query;
 let bookmarks_selected;
 let notes_selected;
+let modal_open = false;
 
 let to_do_items_storage = {};
 
@@ -14,11 +15,13 @@ const array_of_puppies = [
   "https://images.pexels.com/photos/69372/pexels-photo-69372.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
 ];
 
+//DOM elements
 const body = document.querySelector("body");
 const search_input = document.querySelector(".search-bar");
 const search_btn = document.querySelector(".search-btn");
 const settings_btn = document.querySelector(".settings-btn");
 const settings_modal = document.querySelector(".settings-modal");
+const close_modal = document.querySelector(".close-modal");
 
 //tabs
 const bookmarks_tab = document.querySelector(".bookmarks-tab");
@@ -38,6 +41,12 @@ const containers_array = [bookmarks_main_container, to_do_container];
 const to_do_input = document.querySelector(".to-do-input");
 const to_do_list = document.querySelector(".to-do-append");
 const to_do_add = document.querySelector(".to-do-add");
+
+//add listener to close modal
+close_modal.onclick = function() {
+  settings_modal.style.top = "-300px";
+  modal_open = false;
+};
 
 //add listener to close other tabs
 tabs_array.forEach(el => {
@@ -197,7 +206,10 @@ search_btn.onclick = function() {
 //listen for settings button
 settings_btn.onclick = function() {
   settings_modal.style.top = "300px";
-  bookmarks_tab.classList.add("bold-tab");
+  modal_open = true;
+  if (!modal_open) {
+    bookmarks_tab.classList.add("bold-tab");
+  }
 };
 
 // fill bookmarks
@@ -210,9 +222,86 @@ chrome.bookmarks.getSubTree("0", function(data) {
     let icon = document.createElement("img");
     icon.src = "chrome://favicon/" + bookmarks_array[i].url;
     let title = document.createElement("span");
-    title.innerText = bookmarks_array[i].title;
+    if (bookmarks_array[i].title.length > 35) {
+      let truncated = "";
+      for (let j = 0; j < 35; j++) {
+        truncated += bookmarks_array[i].title[j];
+      }
+      truncated += "...";
+      title.innerText = truncated;
+    } else {
+      title.innerText = bookmarks_array[i].title;
+    }
     card.appendChild(icon);
     card.appendChild(title);
     bookmarks_container.appendChild(card);
   }
 });
+
+const hours = document.querySelector(".clock-hours");
+const minutes = document.querySelector(".clock-minutes");
+const seconds = document.querySelector(".clock-seconds");
+const date = new Date();
+
+hours.innerText = getStandardHours(date.getHours());
+minutes.innerText = date.getMinutes();
+seconds.innerText = date.getSeconds();
+
+function increaseSeconds() {
+  let secs = parseInt(seconds.innerText);
+  if (secs < 59) {
+    if (secs < 9) {
+      secs++;
+      seconds.innerText = "0" + secs;
+      return;
+    }
+    secs++;
+    seconds.innerText = secs;
+  } else {
+    increaseMinutes();
+    secs = "00";
+    seconds.innerText = secs;
+  }
+}
+
+function increaseMinutes() {
+  let mins = parseInt(minutes.innerText);
+  if (mins < 59) {
+    if (mins < 9) {
+      mins++;
+      minutes.innerText = "0" + mins;
+      return;
+    }
+    mins++;
+    minutes.innerText = mins;
+  } else {
+    increaseHours();
+    mins = "00";
+    minutes.innerText = mins;
+  }
+}
+
+function increaseHours() {
+  let hrs = parseInt(hours.innerText);
+  if (hrs < 12) {
+    if (hrs === 0) {
+      hours.innerText = "12";
+      return;
+    }
+    hrs++;
+    hours.innerText = hrs;
+  } else {
+    hrs = "1";
+    hours.innerText = hrs;
+  }
+}
+
+function getStandardHours(hrs) {
+  if (hrs < 13) {
+    return hrs;
+  } else {
+    return hrs - 12;
+  }
+}
+
+setInterval(increaseSeconds, 1000);
