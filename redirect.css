@@ -4,9 +4,9 @@ body {
 
 .settings-modal {
     position: absolute;
-    top: 300px;
-    width: 75%;
-    min-height: 300px;
+    top: -300px;
+    width: 65%;
+    min-height: 500px;
     height: auto;
     border: solid 1px rgb(224, 224, 224);
     border-radius: 2px;
@@ -29,6 +29,40 @@ body {
     font-size: 14px;
     color: #757575;
     cursor: pointer;
+}
+
+.bookmarks-container { 
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+}
+
+.bookmarks-container a {
+    display: block;
+    padding: 20px;
+    color: #757575;
+    margin: 5px;
+    border: solid 1px rgb(180, 180, 180);
+    border-radius: 2px;
+    box-shadow: 0 2px 2px rgba(0,0,0,.2);
+}
+
+.bookmarks-container a:hover {
+    background-color: #eaeaea;
+}
+
+.bookmarks-container a:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+.bookmarks-container img {
+    padding-right: 5px
+}
+
+.bookmarks-container span {
+    line-height: 20px;
+    vertical-align: top;
 }
 
 .close-modal {
@@ -124,4 +158,79 @@ body {
     position: absolute;
     right: -10px;
     top: 0;
+}
+
+.bold-tab {
+    font-weight: bold;
+}
+
+.to-do-container {
+    display: none;
+    text-align: center;
+    position: relative;
+    width: 450px;
+    margin: 0 auto;
+}
+
+.to-do-container h5 {
+    font-size: 20px;
+    margin: 15px 0;
+}
+
+.to-do-input {
+    width: 400px;
+    padding: 15px;
+    font-size: 16px;
+    color: inherit;
+    border: solid 1px rgb(231, 231, 231);
+    border-radius: 2px;
+    margin-top: 15px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16);
+    transition: all .2s ease-in-out;
+}
+
+.to-do-input:focus {
+    outline: none;
+    border-bottom: solid 4px rgb(36, 202, 36);
+}
+
+.to-do-add {
+    position: absolute;
+    right: 9px;
+    top: 16px;
+    width: 40px;
+    height: 38px;
+    background-color: rgb(36, 202, 36);
+    border-radius: 0 2px 2px 0;
+    padding-top: 12px;
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
+}
+
+.to-do-append {
+    list-style: none;
+    text-align: left;
+    padding-left: 0;
+    height: 320px;
+    overflow: auto;
+}
+
+.to-do-container li {
+    padding: 15px;
+    padding-right: 50px;
+    position: relative;
+}
+.to-do-container li:nth-child(odd) {
+    background-color: #f8f8f8;
+    
+}
+
+.to-do-trash{
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 20px;
 }

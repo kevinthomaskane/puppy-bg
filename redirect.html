@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,15 @@
     <title>Google</title>
     <link rel="stylesheet" href="redirect.css">
 </head>
+
 <body>
     <div class="settings-modal">
         <div class="settings-modal-header">
-            <div class="bookmarks-tab">
+            <div class="bookmarks-tab" data-id="bookmarks-tab">
                 Bookmarks
+            </div>
+            <div class="to-do-tab" data-id="to-do-tab">
+                To-Do
             </div>
             <div class="images-tab">
                 More Puppies
@@ -21,20 +26,31 @@
                 &times;
             </div>
         </div>
-        <div class="bookmarks-container">
-            
+        <div class="bookmarks-main-container" data-id="bookmarks-tab">
+            <div class="bookmarks-container">
+
+            </div>
+        </div>
+        <div class="to-do-container" data-id="to-do-tab">
+            <input type="text" class="to-do-input" placeholder="add an item">
+            <a href="#" class="to-do-add">&#43;</a>
+            <h5>My items</h5>
+            <ul class="to-do-append">
+
+            </ul>
         </div>
     </div>
     <div class="search__container">
         <input type="text" class="search-bar">
         <a href="#" class="search-btn">Google Search</a>
-    </div>    
-    
-<img src="chrome://favicon/https://stackoverflow.com/" alt="">
-<a href="#" class="settings-btn">
-    <span class="settings-btn-dot"></span>
-</a>
+    </div>
+
+    <img src="chrome://favicon/https://stackoverflow.com/" alt="">
+    <a href="#" class="settings-btn">
+        <span class="settings-btn-dot"></span>
+    </a>
     <script type="text/javascript" src="content.js">
     </script>
 </body>
+
 </html>
