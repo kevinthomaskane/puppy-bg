@@ -18,35 +18,46 @@ const array_of_puppies = [
   "https://images.pexels.com/photos/69372/pexels-photo-69372.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
 ];
 
+function $(el, type) {
+  switch (type) {
+    case "create":
+      return document.createElement(el);
+    case "all":
+      return document.querySelectorAll(el);
+    default:
+      return document.querySelector(el);
+  }
+}
+
 //DOM elements
-const body = document.querySelector("body");
-const search_input = document.querySelector(".search-bar");
-const search_btn = document.querySelector(".search-btn");
-const settings_btn = document.querySelector(".settings-btn");
-const settings_modal = document.querySelector(".settings-modal");
-const close_modal = document.querySelector(".close-modal");
-const search_container = document.querySelector(".search__container");
+const body = $("body");
+const search_input = $(".search-bar");
+const search_btn = $(".search-btn")
+const settings_btn = $(".settings-btn");
+const settings_modal = $(".settings-modal");
+const close_modal = $(".close-modal");
+const search_container = $(".search__container");
 
 //notes container
-const notes_container = document.querySelector(".notes-container");
-const add_note = document.querySelector(".add-note");
+const notes_container = $(".notes-container");
+const add_note = $(".add-note");
 
 //tabs
-const bookmarks_tab = document.querySelector(".bookmarks-tab");
-const puppies_tab = document.querySelector(".images-tab");
-const to_do_tab = document.querySelector(".to-do-tab");
-const settings_tab = document.querySelector(".settings-tab");
+const bookmarks_tab = $(".bookmarks-tab");
+const puppies_tab = $(".images-tab");
+const to_do_tab = $(".to-do-tab");
+const settings_tab = $(".settings-tab");
 const tabs_array = [bookmarks_tab, puppies_tab, to_do_tab, settings_tab];
 
 //containers
-const bookmarks_container = document.querySelector(".bookmarks-container");
-const bookmarks_main_container = document.querySelector(
+const bookmarks_container = $(".bookmarks-container");
+const bookmarks_main_container = $(
   ".bookmarks-main-container"
 );
-const to_do_container = document.querySelector(".to-do-container");
-const settings_container = document.querySelector(".settings-container");
-const puppies_container = document.querySelector(".puppies-container");
-const puppies_row = document.querySelector(".puppies-row");
+const to_do_container = $(".to-do-container");
+const settings_container = $(".settings-container");
+const puppies_container = $(".puppies-container");
+const puppies_row = $(".puppies-row");
 const containers_array = [
   bookmarks_main_container,
   to_do_container,
@@ -55,30 +66,30 @@ const containers_array = [
 ];
 
 //to-do items
-const to_do_input = document.querySelector(".to-do-input");
-const to_do_list = document.querySelector(".to-do-append");
-const to_do_add = document.querySelector(".to-do-add");
+const to_do_input = $(".to-do-input");
+const to_do_list = $(".to-do-append");
+const to_do_add = $(".to-do-add");
 
 //slider pieces
-const yes_arr = [...document.querySelectorAll(".yes")];
-const no_arr = [...document.querySelectorAll(".no")];
-const slide_arr = [...document.querySelectorAll(".slide")];
+const yes_arr = [...$(".yes", "all")];
+const no_arr = [...$(".no", "all")];
+const slide_arr = [...$(".slide", "all")];
 
 //puppy parts
-const eye_lids = document.getElementById("eyelids");
-const default_mouth = document.getElementById("default-mouth");
-const speech_bubble = document.getElementById("speech-bubble");
-const tail = document.getElementById("tail");
-const puppy_container = document.querySelector(".puppy-container");
+const eye_lids = $("#eyelids");
+const default_mouth = $("#default-mouth");
+const speech_bubble = $("#speech-bubble");
+const tail = $("#tail");
+const puppy_container = $(".puppy-container");
 
-const H = document.getElementById("H");
-const i1 = document.getElementById("i");
-const t = document.getElementById("t");
-const h = document.getElementById("h");
-const e1 = document.getElementById("e-1");
-const r = document.getElementById("r");
-const e2 = document.getElementById("e-2");
-const ex = document.getElementById("ex");
+const H = $("#H");
+const i1 = $("#i");
+const t = $("#t");
+const h = $("#h");
+const e1 = $("#e-1");
+const r = $("#r");
+const e2 = $("#e-2");
+const ex = $("#ex");
 const letters_array = [H, i1, t, h, e1, r, e2, ex];
 
 //show search bar
@@ -116,37 +127,35 @@ if (!localStorage.getItem("puppy-setting")) {
     }
     body.setAttribute(
       "style",
-      `background-image: url("${localStorage.getItem(
-        "image"
-      )}");`
+      `background-image: url("${localStorage.getItem("image")}");`
     );
   }
 }
 
 //listener for notes
 add_note.onclick = function() {
-    let note = document.createElement("div");
-    let delete_btn = document.createElement("span");
-    let text_area = document.createElement("textarea");
-    delete_btn.innerHTML = "&times;";
-    delete_btn.className = "note-delete";
-    note.className = "note-div";
-    text_area.className = "note-textarea";
-    note.setAttribute("data-id", Math.random());
-    delete_btn.setAttribute("data-id", note.getAttribute("data-id"));
-    text_area.setAttribute("data-id", note.getAttribute("data-id"));
-    text_area.addEventListener("keyup", function(e) {
-      notes_storage[text_area.getAttribute("data-id")] = this.value;
-      notesToStorage(notes_storage);
-    });
-    delete_btn.addEventListener("click", function() {
-      delete notes_storage[this.getAttribute("data-id")];
-      localStorage.setItem("notes", JSON.stringify(notes_storage));
-      this.parentElement.remove();
-    });
-    note.appendChild(delete_btn);
-    note.appendChild(text_area);
-    notes_container.appendChild(note);
+  const note = $("div", "create");
+  const delete_btn = $("span", "create");
+  const text_area = $("textarea", "create");
+  delete_btn.innerHTML = "&times;";
+  delete_btn.className = "note-delete";
+  note.className = "note-div";
+  text_area.className = "note-textarea";
+  note.setAttribute("data-id", Math.random());
+  delete_btn.setAttribute("data-id", note.getAttribute("data-id"));
+  text_area.setAttribute("data-id", note.getAttribute("data-id"));
+  text_area.addEventListener("keyup", function(e) {
+    notes_storage[text_area.getAttribute("data-id")] = this.value;
+    notesToStorage(notes_storage);
+  });
+  delete_btn.addEventListener("click", function() {
+    delete notes_storage[this.getAttribute("data-id")];
+    localStorage.setItem("notes", JSON.stringify(notes_storage));
+    this.parentElement.remove();
+  });
+  note.appendChild(delete_btn);
+  note.appendChild(text_area);
+  notes_container.appendChild(note);
 };
 
 //set notes to local storage
@@ -159,9 +168,9 @@ if (localStorage.getItem("notes")) {
   let notes = JSON.parse(localStorage.getItem("notes"));
   notes_storage = notes;
   for (let prop in notes) {
-    let note = document.createElement("div");
-    let delete_btn = document.createElement("span");
-    let text_area = document.createElement("textarea");
+    const note = $("div", "create");
+    const delete_btn = $("span", "create");
+    const text_area = $("textarea", "create");
     delete_btn.innerHTML = "&times;";
     delete_btn.className = "note-delete";
     note.className = "note-div";
@@ -188,7 +197,7 @@ if (localStorage.getItem("notes")) {
 //display puppy images
 function printPuppyImages(arr) {
   for (let i = 0; i < arr.length; i++) {
-    let puppy_image = document.createElement("div");
+    const puppy_image = $("div", "create");
     puppy_image.className = "puppy-image";
     puppy_image.setAttribute("data-id", arr[i]);
     puppy_image.style.backgroundImage = `url('${arr[i]}')`;
@@ -204,9 +213,7 @@ function printPuppyImages(arr) {
       }
       body.setAttribute(
         "style",
-        `background-image: url("${localStorage.getItem(
-          "image"
-        )}");`
+        `background-image: url("${localStorage.getItem("image")}");`
       );
     };
     puppies_row.appendChild(puppy_image);
@@ -248,8 +255,8 @@ tabs_array.forEach(el => {
 
 yes_arr.forEach(el => {
   el.addEventListener("click", function() {
-    let id = el.getAttribute("data-id");
-    let slider = getSlide(id);
+    const id = el.getAttribute("data-id");
+    const slider = getSlide(id);
     slider.style.right = "-1px";
     slider.style.background = "rgb(142, 102, 252)";
     slider.style.boxShadow = "-2px 0px 8px 2px #dbdbdb";
@@ -264,8 +271,8 @@ yes_arr.forEach(el => {
 });
 no_arr.forEach(el => {
   el.addEventListener("click", function() {
-    let id = el.getAttribute("data-id");
-    let slider = getSlide(id);
+    const id = el.getAttribute("data-id");
+    const slider = getSlide(id);
     slider.style.right = "26px";
     slider.style.background = "gray";
     slider.style.boxShadow = "2px 0px 8px 2px #dbdbdb";
@@ -295,48 +302,48 @@ if (localStorage.getItem("todos")) {
   puppy_container.style.display = "block";
 }
 
-to_do_input.addEventListener("keypress", function(e){
-  if (e.which == 13 || e.code == 13){
+to_do_input.addEventListener("keypress", function(e) {
+  if (e.which == 13 || e.code == 13) {
     let item = to_do_input.value;
-  puppy_container.style.display = "none";
-  if (item.length > 1) {
-    let new_item = document.createElement("li");
-    new_item.setAttribute("data-id", Math.random());
-    let trash = document.createElement("div");
-    trash.setAttribute("data-id", new_item.getAttribute("data-id"));
-    trash.innerHTML = "&#128465;";
-    trash.className = "to-do-trash";
-    new_item.className = "to-do-item";
-    new_item.innerText = item;
-    new_item.appendChild(trash);
-    to_do_items_storage[new_item.getAttribute("data-id")] = item;
-    setToDoLocalStorage(to_do_items_storage);
-    to_do_list.appendChild(new_item);
-    trash.addEventListener("click", function() {
-      let id = this.getAttribute("data-id");
-      for (let prop in to_do_items_storage) {
-        if (id === prop) {
-          delete to_do_items_storage[prop];
-          setToDoLocalStorage(to_do_items_storage);
-          let remove_these = [
-            ...document.querySelectorAll(`[data-id='${id}']`)
-          ];
-          remove_these.forEach(el => el.remove());
+    puppy_container.style.display = "none";
+    if (item.length > 1) {
+      const new_item = $("li", "create");
+      new_item.setAttribute("data-id", Math.random());
+      const trash = $("div", "create");
+      trash.setAttribute("data-id", new_item.getAttribute("data-id"));
+      trash.innerHTML = "&#128465;";
+      trash.className = "to-do-trash";
+      new_item.className = "to-do-item";
+      new_item.innerText = item;
+      new_item.appendChild(trash);
+      to_do_items_storage[new_item.getAttribute("data-id")] = item;
+      setToDoLocalStorage(to_do_items_storage);
+      to_do_list.appendChild(new_item);
+      trash.addEventListener("click", function() {
+        const id = this.getAttribute("data-id");
+        for (let prop in to_do_items_storage) {
+          if (id === prop) {
+            delete to_do_items_storage[prop];
+            setToDoLocalStorage(to_do_items_storage);
+            const remove_these = [
+              ...$(`[data-id='${id}']`, "all")
+            ];
+            remove_these.forEach(el => el.remove());
+          }
         }
-      }
-    });
+      });
+    }
   }
-  }
-})
+});
 
 //add listener for to do input
 to_do_add.onclick = function() {
   let item = to_do_input.value;
   puppy_container.style.display = "none";
   if (item.length > 1) {
-    let new_item = document.createElement("li");
+    const new_item = ("li", "create");
     new_item.setAttribute("data-id", Math.random());
-    let trash = document.createElement("div");
+    const trash = ("div", "create");
     trash.setAttribute("data-id", new_item.getAttribute("data-id"));
     trash.innerHTML = "&#128465;";
     trash.className = "to-do-trash";
@@ -347,13 +354,13 @@ to_do_add.onclick = function() {
     setToDoLocalStorage(to_do_items_storage);
     to_do_list.appendChild(new_item);
     trash.addEventListener("click", function() {
-      let id = this.getAttribute("data-id");
+      const id = this.getAttribute("data-id");
       for (let prop in to_do_items_storage) {
         if (id === prop) {
           delete to_do_items_storage[prop];
           setToDoLocalStorage(to_do_items_storage);
-          let remove_these = [
-            ...document.querySelectorAll(`[data-id='${id}']`)
+          const remove_these = [
+            ...$(`[data-id='${id}']`, "all")
           ];
           remove_these.forEach(el => el.remove());
         }
@@ -365,9 +372,9 @@ to_do_add.onclick = function() {
 //append to-do items from storage
 function listFromStorage(obj) {
   for (let prop in obj) {
-    let new_item = document.createElement("li");
+    const new_item = $("li", "create");
     new_item.setAttribute("data-id", prop);
-    let trash = document.createElement("div");
+    const trash = $("div", "create");
     trash.setAttribute("data-id", prop);
     trash.innerHTML = "&#128465;";
     trash.className = "to-do-trash";
@@ -376,13 +383,13 @@ function listFromStorage(obj) {
     new_item.appendChild(trash);
     to_do_list.appendChild(new_item);
     trash.addEventListener("click", function() {
-      let id = this.getAttribute("data-id");
+      const id = this.getAttribute("data-id");
       for (let prop in to_do_items_storage) {
         if (id === prop) {
           delete to_do_items_storage[prop];
           setToDoLocalStorage(to_do_items_storage);
-          let remove_these = [
-            ...document.querySelectorAll(`[data-id='${id}']`)
+          const remove_these = [
+            ...$(`[data-id='${id}']`, "all")
           ];
           remove_these.forEach(el => el.remove());
         }
@@ -429,10 +436,7 @@ function openContainer(container) {
 function choose_puppy(arr) {
   let max_index = arr.length;
   let random_index = Math.floor(Math.random() * max_index);
-  body.setAttribute(
-    "style",
-    `background-image: url("${arr[random_index]}");`
-  );
+  body.setAttribute("style", `background-image: url("${arr[random_index]}");`);
   chosen_puppy = arr[random_index];
 }
 
@@ -487,12 +491,12 @@ settings_btn.onclick = function() {
 chrome.bookmarks.getSubTree("0", function(data) {
   let bookmarks_array = data[0].children[0].children;
   for (let i = 0; i < bookmarks_array.length; i++) {
-    let card = document.createElement("a");
+    const card = $("a", "create");
     card.href = bookmarks_array[i].url;
     card.className = "bookmark-card";
-    let icon = document.createElement("img");
+    const icon = $("img", "create");
     icon.src = "chrome://favicon/" + bookmarks_array[i].url;
-    let title = document.createElement("span");
+    const title = $("span", "create");
     if (bookmarks_array[i].title.length > 35) {
       let truncated = "";
       for (let j = 0; j < 35; j++) {
@@ -509,9 +513,9 @@ chrome.bookmarks.getSubTree("0", function(data) {
   }
 });
 
-const hours = document.querySelector(".clock-hours");
-const minutes = document.querySelector(".clock-minutes");
-const seconds = document.querySelector(".clock-seconds");
+const hours = $(".clock-hours");
+const minutes = $(".clock-minutes");
+const seconds = $(".clock-seconds");
 const date = new Date();
 
 hours.innerText = getStandardHours(date.getHours());
