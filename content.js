@@ -4,7 +4,6 @@ let notes_selected;
 let modal_open = false;
 let show_searchbar = true;
 let chosen_puppy;
-let number_of_notes;
 
 let to_do_items_storage = {};
 let notes_storage = {};
@@ -119,14 +118,13 @@ if (!localStorage.getItem("puppy-setting")) {
       "style",
       `background-image: url("${localStorage.getItem(
         "image"
-      )}"); background-size: 100%;`
+      )}");`
     );
   }
 }
 
 //listener for notes
 add_note.onclick = function() {
-  if (number_of_notes < 3) {
     let note = document.createElement("div");
     let delete_btn = document.createElement("span");
     let text_area = document.createElement("textarea");
@@ -149,8 +147,6 @@ add_note.onclick = function() {
     note.appendChild(delete_btn);
     note.appendChild(text_area);
     notes_container.appendChild(note);
-    number_of_notes++;
-  }
 };
 
 //set notes to local storage
@@ -162,7 +158,6 @@ function notesToStorage(obj) {
 if (localStorage.getItem("notes")) {
   let notes = JSON.parse(localStorage.getItem("notes"));
   notes_storage = notes;
-  number_of_notes = Object.keys(notes).length;
   for (let prop in notes) {
     let note = document.createElement("div");
     let delete_btn = document.createElement("span");
@@ -211,7 +206,7 @@ function printPuppyImages(arr) {
         "style",
         `background-image: url("${localStorage.getItem(
           "image"
-        )}"); background-size: 100%;`
+        )}");`
       );
     };
     puppies_row.appendChild(puppy_image);
@@ -237,7 +232,7 @@ function initBlink() {
 
 //add listener to close modal
 close_modal.onclick = function() {
-  settings_modal.style.top = "-300px";
+  settings_modal.style.top = "-900px";
   modal_open = false;
 };
 
@@ -436,7 +431,7 @@ function choose_puppy(arr) {
   let random_index = Math.floor(Math.random() * max_index);
   body.setAttribute(
     "style",
-    `background-image: url("${arr[random_index]}"); background-size: 100%;`
+    `background-image: url("${arr[random_index]}");`
   );
   chosen_puppy = arr[random_index];
 }
@@ -473,7 +468,7 @@ search_btn.onclick = function() {
 
 //listen for settings button
 settings_btn.onclick = function() {
-  settings_modal.style.top = "300px";
+  settings_modal.style.top = "40vh";
   let found = false;
   for (let i = 0; i < tabs_array.length; i++) {
     if (tabs_array[i].className.includes("bold-tab")) {
