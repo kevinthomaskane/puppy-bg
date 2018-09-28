@@ -300,6 +300,40 @@ if (localStorage.getItem("todos")) {
   puppy_container.style.display = "block";
 }
 
+to_do_input.addEventListener("keypress", function(e){
+  if (e.which == 13 || e.code == 13){
+    let item = to_do_input.value;
+  puppy_container.style.display = "none";
+  if (item.length > 1) {
+    let new_item = document.createElement("li");
+    new_item.setAttribute("data-id", Math.random());
+    let trash = document.createElement("div");
+    trash.setAttribute("data-id", new_item.getAttribute("data-id"));
+    trash.innerHTML = "&#128465;";
+    trash.className = "to-do-trash";
+    new_item.className = "to-do-item";
+    new_item.innerText = item;
+    new_item.appendChild(trash);
+    to_do_items_storage[new_item.getAttribute("data-id")] = item;
+    setToDoLocalStorage(to_do_items_storage);
+    to_do_list.appendChild(new_item);
+    trash.addEventListener("click", function() {
+      let id = this.getAttribute("data-id");
+      for (let prop in to_do_items_storage) {
+        if (id === prop) {
+          delete to_do_items_storage[prop];
+          setToDoLocalStorage(to_do_items_storage);
+          let remove_these = [
+            ...document.querySelectorAll(`[data-id='${id}']`)
+          ];
+          remove_these.forEach(el => el.remove());
+        }
+      }
+    });
+  }
+  }
+})
+
 //add listener for to do input
 to_do_add.onclick = function() {
   let item = to_do_input.value;
