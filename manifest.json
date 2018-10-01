@@ -1,8 +1,8 @@
 {
-    "name": "Puppy Wallpaper for Google",
-    "version": "1.0",
-    "description": "Choose a cute puppy image as the background for Google chrome!",
-    "permissions": ["activeTab", "tabs", "bookmarks", "chrome://favicon/", "webRequest", "webRequestBlocking", "geolocation"],
+    "name": "Puppy Wallpaper - Cute Puppy Backgrounds",
+    "version": "1.2",
+    "description": "Choose a cute puppy image as your wallpaper for Google chrome!",
+    "permissions": ["activeTab", "tabs", "bookmarks", "chrome://favicon/", "webRequest", "webRequestBlocking"],
     "background": {
         "scripts": ["background.js"],
         "persistent": true
@@ -11,19 +11,18 @@
         "newtab": "redirect.html"
     }, 
     "browser_action": {
-      "default_popup": "index.html",
       "default_icon": {
-        "16": "images/citation16.png",
-        "32": "images/citation32.png",
-        "48": "images/citation48.png",
-        "128": "images/citation128.png"
+        "16": "images/puppy16.png",
+        "32": "images/puppy32.png",
+        "48": "images/puppy48.png",
+        "128": "images/puppy128.png"
       }
     },
     "icons": {
-      "16": "images/citation16.png",
-      "32": "images/citation32.png",
-      "48": "images/citation48.png",
-      "128": "images/citation128.png"
+      "16": "images/puppy16.png",
+      "32": "images/puppy32.png",
+      "48": "images/puppy48.png",
+      "128": "images/puppy128.png"
     },
     "manifest_version": 2
   }

@@ -15,7 +15,27 @@ const array_of_puppies = [
   "https://images.pexels.com/photos/248307/pexels-photo-248307.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350",
   "https://images.pexels.com/photos/374906/pexels-photo-374906.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350",
   "https://images.pexels.com/photos/59523/pexels-photo-59523.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-  "https://images.pexels.com/photos/69372/pexels-photo-69372.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+  "https://images.pexels.com/photos/69372/pexels-photo-69372.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/271824/pexels-photo-271824.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/374898/pexels-photo-374898.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/434090/pexels-photo-434090.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/33053/dog-young-dog-small-dog-maltese.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/39388/chihuahua-dog-puppy-cute-39388.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/485294/pexels-photo-485294.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/257577/pexels-photo-257577.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/594687/pexels-photo-594687.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/163685/dog-puppy-yorkshire-terrier-yorkshire-terrier-puppy-163685.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/208834/pexels-photo-208834.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/164446/pexels-photo-164446.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/130763/pexels-photo-130763.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/356378/pexels-photo-356378.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/1254140/pexels-photo-1254140.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/1307630/pexels-photo-1307630.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/942260/pexels-photo-942260.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/130766/pexels-photo-130766.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/1322182/pexels-photo-1322182.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/422212/pexels-photo-422212.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "https://images.pexels.com/photos/34315/bordeaux-mastiff-dog-animal.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
 ];
 
 function $(el, type) {
@@ -32,7 +52,7 @@ function $(el, type) {
 //DOM elements
 const body = $("body");
 const search_input = $(".search-bar");
-const search_btn = $(".search-btn")
+const search_btn = $(".search-btn");
 const settings_btn = $(".settings-btn");
 const settings_modal = $(".settings-modal");
 const close_modal = $(".close-modal");
@@ -51,9 +71,7 @@ const tabs_array = [bookmarks_tab, puppies_tab, to_do_tab, settings_tab];
 
 //containers
 const bookmarks_container = $(".bookmarks-container");
-const bookmarks_main_container = $(
-  ".bookmarks-main-container"
-);
+const bookmarks_main_container = $(".bookmarks-main-container");
 const to_do_container = $(".to-do-container");
 const settings_container = $(".settings-container");
 const puppies_container = $(".puppies-container");
@@ -155,9 +173,10 @@ add_note.onclick = function() {
   });
   note.appendChild(delete_btn);
   note.appendChild(text_area);
-  notes_container.appendChild(note);
+  add_note.insertAdjacentElement("afterend", note);
 };
 
+console.log(notes_container.children);
 //set notes to local storage
 function notesToStorage(obj) {
   localStorage.setItem("notes", JSON.stringify(obj));
@@ -306,7 +325,7 @@ to_do_input.addEventListener("keypress", function(e) {
   if (e.which == 13 || e.code == 13) {
     let item = to_do_input.value;
     puppy_container.style.display = "none";
-    if (item.length > 1) {
+    if (item.length >= 1) {
       const new_item = $("li", "create");
       new_item.setAttribute("data-id", Math.random());
       const trash = $("div", "create");
@@ -318,20 +337,19 @@ to_do_input.addEventListener("keypress", function(e) {
       new_item.appendChild(trash);
       to_do_items_storage[new_item.getAttribute("data-id")] = item;
       setToDoLocalStorage(to_do_items_storage);
-      to_do_list.appendChild(new_item);
+      to_do_list.prepend(new_item);
       trash.addEventListener("click", function() {
         const id = this.getAttribute("data-id");
         for (let prop in to_do_items_storage) {
           if (id === prop) {
             delete to_do_items_storage[prop];
             setToDoLocalStorage(to_do_items_storage);
-            const remove_these = [
-              ...$(`[data-id='${id}']`, "all")
-            ];
+            const remove_these = [...$(`[data-id='${id}']`, "all")];
             remove_these.forEach(el => el.remove());
           }
         }
       });
+      to_do_input.value = "";
     }
   }
 });
@@ -340,10 +358,10 @@ to_do_input.addEventListener("keypress", function(e) {
 to_do_add.onclick = function() {
   let item = to_do_input.value;
   puppy_container.style.display = "none";
-  if (item.length > 1) {
-    const new_item = ("li", "create");
+  if (item.length >= 1) {
+    const new_item = $("li", "create");
     new_item.setAttribute("data-id", Math.random());
-    const trash = ("div", "create");
+    const trash = $("div", "create");
     trash.setAttribute("data-id", new_item.getAttribute("data-id"));
     trash.innerHTML = "&#128465;";
     trash.className = "to-do-trash";
@@ -352,20 +370,19 @@ to_do_add.onclick = function() {
     new_item.appendChild(trash);
     to_do_items_storage[new_item.getAttribute("data-id")] = item;
     setToDoLocalStorage(to_do_items_storage);
-    to_do_list.appendChild(new_item);
+    to_do_list.prepend(new_item);
     trash.addEventListener("click", function() {
       const id = this.getAttribute("data-id");
       for (let prop in to_do_items_storage) {
         if (id === prop) {
           delete to_do_items_storage[prop];
           setToDoLocalStorage(to_do_items_storage);
-          const remove_these = [
-            ...$(`[data-id='${id}']`, "all")
-          ];
+          const remove_these = [...$(`[data-id='${id}']`, "all")];
           remove_these.forEach(el => el.remove());
         }
       }
     });
+    to_do_input.value = "";
   }
 };
 
@@ -388,9 +405,7 @@ function listFromStorage(obj) {
         if (id === prop) {
           delete to_do_items_storage[prop];
           setToDoLocalStorage(to_do_items_storage);
-          const remove_these = [
-            ...$(`[data-id='${id}']`, "all")
-          ];
+          const remove_these = [...$(`[data-id='${id}']`, "all")];
           remove_these.forEach(el => el.remove());
         }
       }
@@ -466,6 +481,7 @@ search_btn.onclick = function() {
       .trim()
       .split(" ")
       .join("+");
+    search_input.value = "";
     window.location.href = `https://www.google.com/search?q=${query}`;
   }
 };
